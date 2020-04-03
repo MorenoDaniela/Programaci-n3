@@ -1,0 +1,13 @@
+{
+    "name": "dell/composer-tests",
+    "authors": [
+        {
+            "name": "Moreno Daniela",
+            "email": "denu.moreno.1990@gmail.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^2.0",
+        "namnv609/php-rest-countries": "^1.0"
+    }
+}
