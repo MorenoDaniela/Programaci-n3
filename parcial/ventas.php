@@ -19,19 +19,18 @@ class Ventas
 
     public static function MostrarVentas()
     {
-        $response = Data::load("ventas.txt");
+        $response = Data::DeserializarObjeto("ventas.txt");
         return $response;
     }
 
     public static function MostrarVentasUser($nombre)
     {
         $return = false;
-        $response = Data::load("ventas.txt");
-        //var_dump($response);
+        $response = Data::DeserializarObjeto("ventas.txt");
         $array = array();
         foreach ($response as $users)
         {
-            if ($users->comprador == $nombre)
+            if ($users->comprador == $nombre && $users!='@')
             {
                 array_push($array,$users);
                 //$return = $return . $users;

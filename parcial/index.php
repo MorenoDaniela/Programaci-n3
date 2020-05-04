@@ -90,7 +90,7 @@ switch($requestMethod)
                     if (isset($_POST['producto']) && isset($_POST['marca']) && isset($_POST['precio']) && isset($_POST['stock']) && isset($_FILES['foto']))
                     {
                         //var_dump($_FILES['foto']);
-                        $producto = new Producto($_POST['producto'],$_POST['marca'], $_POST['precio'],$_POST['stock'], $_FILES['foto']['tmp_name'], mt_rand());
+                        $producto = new Producto($_POST['producto'],$_POST['marca'], $_POST['precio'],$_POST['stock'], $_FILES['foto']['tmp_name'], strtotime("now"));
                         
                         move_uploaded_file($_FILES['foto']['tmp_name'], 'imagenes/'.$_FILES['foto']['name']);
 
@@ -117,7 +117,8 @@ switch($requestMethod)
                     if (isset($_POST['id_producto']) && isset($_POST['cantidad']) && isset($_POST['usuario']))
                     {
                         $respuesta->data = Producto::CrearVenta($_POST['id_producto'], $_POST['cantidad'], $_POST['usuario']);
-                        if ($respuesta->data = "El id ingresado no es correcto")
+                        
+                        if ($respuesta->data == "El id ingresado no es correcto")
                         {
                             $respuesta->status='fail';
                         }

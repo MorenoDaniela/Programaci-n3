@@ -38,14 +38,15 @@ include_once './data.php';
      public static function Login($nombre,$clave)
      {
         $return=false;
-        $response = Data::load("users.txt");
+        $response = Data::MATI("users.txt");
 
         if ($response!=false)
         {
+            var_dump($response);
             $key = "example_key";
             foreach ($response as $user)
             {
-                if ($user!= '' && User::validar($nombre, $clave, $user->nombre, $user->clave))
+            if ($user!= PHP_EOL && User::validar($nombre, $clave, $user->nombre, $user->clave))
                 {
                     $payload = array(
                         "name" => $nombre,
@@ -90,7 +91,7 @@ include_once './data.php';
         }
         
         
-        $lista = Data::LOADD('users.txt');
+        $lista = Data::MATI('users.txt');
         
         if($users)
         {
@@ -114,7 +115,7 @@ include_once './data.php';
         }
         
         
-        $lista = Data::LOADD('users.txt');
+        $lista = Data::MATI('users.txt');
         
         if($users)
         {

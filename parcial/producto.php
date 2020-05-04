@@ -29,17 +29,19 @@ class Producto
         $array = Archivos::leerJson('productos.json');
         $ultimo = 'El id ingresado no es correcto';
         $nuevoArray='';
+        $newPrecio='';
 
         foreach ($array as $product)
         {
             if ($product->id == $id && $product->stock >= $cantidad)
             {
+                
                 //$newProducto = $product->producto;//nombre
                 //$newId = $product->id;//id
                 //$newMarca = $product->marca;//marca
                 //$stock = $product->stock - $cantidad;//nueva cantidad
                 $product->stock = $product->stock - $cantidad;
-                //$newPrecio = $product->precio;//precio
+                $newPrecio = $product->precio;//precio
                 //$newFoto = $product->foto;//foto
 
                 $ultimo = $product->precio * $cantidad;
@@ -55,12 +57,13 @@ class Producto
             
         }
         Archivos::reemplazarJSON('productos.json',$nuevoArray);
-                $venta = new Ventas($id,$cantidad, $return, $usuario);
-                if (Data::save('ventas.txt',$venta))
+                $venta = new Ventas($id,$cantidad, $newPrecio, $usuario);
+                if (Data::SerializarObjeto('ventas.txt',$venta))
                 {
                     $return = $ultimo;
                 }
 
+                
         return $return;
     }
 
