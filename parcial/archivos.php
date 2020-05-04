@@ -40,19 +40,9 @@ class Archivos
 
     public static function guardarJSON($archivo, $objeto)
     {
-        // LEEMOS
-        /*
-        $file = fopen($archivo, 'r');
-
-        $arrayString = fread($file, filesize($archivo));
-
-        $arrayJSON = json_decode($arrayString);//encode devuelve json espera recibir un array//decode devuelve array espera recibir un json
-
-        fclose($file);
-
-       // $arrayJSON= array();*/
         $arrayJson= Archivos::leerJSON($archivo);
 
+        
         if (is_null($arrayJson))
         {
             $arrayJson = array();
@@ -65,49 +55,27 @@ class Archivos
         $file = fopen($archivo, 'w');
 
         $rta = fwrite($file, json_encode($arrayJson));
+        //var_dump($arrayJson);
 
         fclose($file);
 
         return $rta;
     }
 
-    /*
-    public static function guardarJSON($archivo, $object){
-
-        $file = fopen($archivo,'r');
+    public static function reemplazarJSON($archivo,$objeto)
+    {
         
-        $arrayJson = Datos::leerJson($archivo);
-        if(is_null($arrayJson)){
-            $arrayJson = array();
-        }
-        array_push($arrayJson,$object);
+
+        $file = fopen($archivo, 'w');
+
+        $rta = fwrite($file, json_encode($objeto));
+        //var_dump($arrayJson);
+
         fclose($file);
 
-        $file = fopen($archivo,'w');
-        fwrite($file,json_encode($arrayJson));
-        fclose($file);
-        
-    }
-
-    public static function leerJson($archivo){
-
-        $file = fopen($archivo,'r');
-        $rta = '';    
-        while(!feof($file)){
-            $linea = json_decode(fgets($file));
-            if($rta==''){
-                $rta = $linea;
-            }else{
-                $rta = $rta.' '.$linea;
-            }
-        
-        }
-        
         return $rta;
-
     }
 
-    */
     public static function leerJSON($archivo)
     {
         $file = fopen($archivo, 'r');

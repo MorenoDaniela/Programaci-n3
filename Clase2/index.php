@@ -54,6 +54,7 @@ switch($pathInfo)
                 echo json_encode($respuesta);
             break; 
             case 'PUT':
+                echo "hola";
                 if (isset($_PUT['id']))
                 {
                     $rta = Persona::findPersona($_PUT['id'],"personas.json");

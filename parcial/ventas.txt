@@ -1,0 +1,2 @@
+O:6:"Ventas":4:{s:2:"id";s:9:"807466421";s:6:"precio";b:0;s:9:"comprador";s:7:"daniela";s:8:"cantidad";s:1:"2";}
+O:6:"Ventas":4:{s:2:"id";s:10:"1258535048";s:6:"precio";b:0;s:9:"comprador";s:7:"daniela";s:8:"cantidad";s:1:"2";}
