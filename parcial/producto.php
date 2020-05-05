@@ -58,7 +58,7 @@ class Producto
         }
         Archivos::reemplazarJSON('productos.json',$nuevoArray);
                 $venta = new Ventas($id,$cantidad, $newPrecio, $usuario);
-                if (Data::SerializarObjeto('ventas.txt',$venta))
+                if (Data::save('ventas.txt',$venta))
                 {
                     $return = $ultimo;
                 }

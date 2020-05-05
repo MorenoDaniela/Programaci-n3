@@ -88,17 +88,24 @@ class Datos
 
     public static function guardarJSON($archivo, $objeto)//sin probar
     {
-        $file = fopen($archivo, 'r');
-        $arrayString = fread($file, filesize($archivo));
-        $arrayJson = json_decode($arrayString);
-        if ($arrayJson!=false)
+        $arrayJson= Datos::TraerJSON($archivo);
+        if (is_null($arrayJson))
         {
-            fclose($file);
             $arrayJson = array();
-            array_push($arrayJson, $objeto);
-            $file = fopen($archivo, 'w');
-            $rta = fwrite($file, json_encode($arrayJson));
         }
+        array_push($arrayJson, $objeto);
+        $file = fopen($archivo, 'w');
+        $rta = fwrite($file, json_encode($arrayJson));
+        //var_dump($arrayJson);
+        fclose($file);
+        return $rta;
+    }
+
+    public static function reemplazarJSON($archivo,$objeto)
+    {
+        $file = fopen($archivo, 'w');
+        $rta = fwrite($file, json_encode($objeto));
+        //var_dump($arrayJson);
         fclose($file);
         return $rta;
     }

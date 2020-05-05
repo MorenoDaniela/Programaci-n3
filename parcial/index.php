@@ -93,6 +93,7 @@ switch($requestMethod)
                         $producto = new Producto($_POST['producto'],$_POST['marca'], $_POST['precio'],$_POST['stock'], $_FILES['foto']['tmp_name'], strtotime("now"));
                         
                         move_uploaded_file($_FILES['foto']['tmp_name'], 'imagenes/'.$_FILES['foto']['name']);
+                        Archivos::MarcaAgua('imagenes/'.$_FILES['foto']['name'],'imagenes/conMarca.jpg');
 
                         $respuesta->data=Archivos::guardarJSON('productos.json',$producto);
 
