@@ -79,11 +79,21 @@ class Datos
 
     public static function TraerJSON($archivo)//sin probar
     {
-        $file = fopen($archivo, 'r');
+        $file = fopen($archivo, 'a+');//cambiar a r y dejar lo de abajo si tira error fread
+        if(filesize($archivo)!=0)
+        {
+            $arrayString = fread($file, filesize($archivo));
+            $arrayJSON = json_decode($arrayString);
+            fclose($file);
+            return $arrayJSON;
+        }else{
+            return NULL;
+        }
+        /*
         $arrayString = fread($file, filesize($archivo));
         $arrayJSON = json_decode($arrayString);
         fclose($file);
-        return $arrayJSON;
+        return $arrayJSON;*/
     }
 
     public static function guardarJSON($archivo, $objeto)//sin probar

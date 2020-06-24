@@ -95,7 +95,7 @@ switch($requestMethod)
                         {
                             $respuesta->data = Pizza::Singin($_POST['tipo'], $_POST['precio'],$_POST['stock'],$_POST['sabor'], $_FILES['foto']['tmp_name']);
                             move_uploaded_file($_FILES['foto']['tmp_name'], 'imagenes/'.$_FILES['foto']['name']);
-                            Datos::MarcaAgua('imagenes/'.$_FILES['foto']['name'],'imagenes/conMarca.jpg');
+                            Datos::MarcaAgua('imagenes/'.$_FILES['foto']['name'],'imagenes/' .$_FILES['foto']['name'] . 'conMarca.jpg');
 
                             //$respuesta->data=Archivos::guardarJSON('productos.json',$producto);
 

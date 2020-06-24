@@ -1,0 +1,13 @@
+{
+    "name": "dell/clase5",
+    "authors": [
+        {
+            "name": "Daniela Moreno",
+            "email": "denu.moreno.1990@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.1"
+    }
+}

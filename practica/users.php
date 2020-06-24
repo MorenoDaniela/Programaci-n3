@@ -36,7 +36,7 @@ include_once './datos.php';
         if ($response!=false)
         {
             
-            $key = "example_key";
+            $key = "example_key";//cambiar por la key que pida
             foreach ($response as $user)
             {
             if (User::validar($email, $clave, $user->email, $user->clave))
