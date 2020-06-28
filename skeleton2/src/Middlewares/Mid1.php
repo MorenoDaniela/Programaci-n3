@@ -32,7 +32,7 @@ class BeforeMiddleware
             $response->getBody()->write('NO autorizado ');
         }
         
-        $response->getBody()->write('BEFORE ' . $existingContent);//
+       // $response->getBody()->write('BEFORE ' . $existingContent);//
 
         return $response;
     }

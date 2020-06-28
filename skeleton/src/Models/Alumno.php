@@ -1,10 +1,7 @@
 <?php
 namespace App\Models;
 
-class Alumno
+class Alumno extends \Illuminate\Database\Eloquent\Model
 {
-    public static function Saludar()
-    {
-        echo "hola";
-    }
+
 }

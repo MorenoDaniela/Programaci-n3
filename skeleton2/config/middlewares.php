@@ -1,4 +1,6 @@
 <?php
+
+//use Config\Database;
 use Slim\App;
 use App\Middleware\BeforeMiddleware;
 use App\Middleware\AfterMiddleware;
@@ -7,8 +9,8 @@ use App\Middleware\AfterMiddleware;
 return function (App $app) {
     $app->addBodyParsingMiddleware();
 
-    //$app->add(new BeforeMiddleware());
-    //ox$app->add(new AfterMiddleware());
+    $app->add(new BeforeMiddleware());
+    $app->add(new AfterMiddleware());
     //$app->add(BeforeMiddleware::class);
     
 };

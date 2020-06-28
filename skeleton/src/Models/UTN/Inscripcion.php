@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Models\UTN;
 
 class Inscripcion
 {
-    public static function Saludar()
+
+    static public function saludar()
     {
-        echo "hola inscripcion";
+        echo "Hola Inscripcion";
     }
 }

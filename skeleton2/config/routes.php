@@ -1,5 +1,7 @@
 <?php
 
+//use Config\Database;
+
 use Slim\Routing\RouteCollectorProxy;
 use App\Controllers\AlumnosController;
 use App\Middleware\BeforeMiddleware;
