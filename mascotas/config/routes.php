@@ -4,16 +4,19 @@ namespace Config;
 
 use Slim\Routing\RouteCollectorProxy;
 use App\Controllers\UsuariosController;
-use App\Middlewares\BeforeMiddleware;
-use App\Middlewares\UsuarioValidateMiddleware;
-use App\Middlewares\RegistroMiddleware;
-use App\Middlewares\LoginMiddleware;
+use App\Controllers\MascotasController;
+use App\Middleware\BeforeMiddleware;
+use App\Middleware\UsuarioValidateMiddleware;
+use App\Middleware\RegistroMiddleware;
+use App\Middleware\LoginMiddleware;
+use App\Middleware\RegistroMascotaMiddleware;
 
 
 return function ($app) 
 {
     $app->post('/registro',UsuariosController::class . ':add')->add(RegistroMiddleware::class);
-    $app->post('/login', UsuariosController::class . 'login')->add(LoginMiddleware::class);
+    $app->post('/login',UsuariosController::class . ':login')->add(LoginMiddleware::class);
+    $app->post('/mascota',MascotasController::class . ':add')->add(RegistroMascotaMiddleware::class);
 
     /*
     $app->group('/usuarios', function (RouteCollectorProxy $group) {

@@ -1,5 +1,5 @@
 <?php
-namespace App\Middlewares;
+namespace App\Middleware;
 
 //use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -21,19 +21,22 @@ class RegistroMiddleware
         
         $headers = $request->getParsedBody();
 
+        
         if ((isset($headers['email']) && $headers['email']!="") && (isset($headers['password']) && $headers['password']!="") && (isset($headers['tipo'])&& $headers['tipo']!=""))
         {
             $response = $handler->handle($request);
             $existingContent = (string) $response->getBody();
+            $resp = new Response();
+            $resp->getBody()->write('Los datos se encuentran bien' . $existingContent);
+            return $resp->withHeader('Content-type', 'application/json');
+            
+        } else 
+        {
             $response = new Response();
-            $response->getBody()->write('Los datos se encuentran bien' . $existingContent);
-            return $response->withHeader('Content-type', 'application/json');;
-        } else {
-            $response = new Response();
-            $response->getBody()->write('No se pudo completar el registro, faltan datos');
+            $response->getBody()->write("No se pudo completar el registro, faltan datos");
             //throw new \Slim\Exception\HttpForbiddenException($request);
-		    $response->withStatus(403);
-            return $response->withHeader('Content-type', 'application/json');;
+            $response->withStatus(403);
+            return $response->withHeader('Content-type', 'application/json');
         }
 
     }

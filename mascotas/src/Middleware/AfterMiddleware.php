@@ -1,11 +1,11 @@
 <?php
-namespace App\Middlewares;
+namespace App\Middleware;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
-class UsuarioValidateMiddleware
+class AfterMiddleware
 {
     /**
      * Example middleware invokable class
@@ -18,22 +18,10 @@ class UsuarioValidateMiddleware
     public function __invoke(Request $request, RequestHandler $handler): Response
     {
         $response = $handler->handle($request);
-        $existingContent = (string) $response->getBody();
+        $response->getBody()->write(' AFTER');//
 
-        $response = new Response();
-
-        /**
-         * VALIDAR JWT
-         * getHeader('mi_token)
-         */
-        if (true) {
-            $response->getBody()->write($existingContent);
-        } else {
-            $response->getBody()->write('NO autorizado ');
-        }
-
-         $response->getBody()->write('BEFORE ' . $existingContent);
-
+        $response = $response->withHeader('Content-type', 'application/json');
+        
         return $response;
     }
 }
