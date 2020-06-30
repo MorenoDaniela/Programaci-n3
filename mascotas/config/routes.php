@@ -3,13 +3,18 @@
 namespace Config;
 
 use Slim\Routing\RouteCollectorProxy;
+//Controllers
 use App\Controllers\UsuariosController;
 use App\Controllers\MascotasController;
+use App\Controllers\TurnosController;
+//middles
 use App\Middleware\BeforeMiddleware;
 use App\Middleware\UsuarioValidateMiddleware;
 use App\Middleware\RegistroMiddleware;
 use App\Middleware\LoginMiddleware;
 use App\Middleware\RegistroMascotaMiddleware;
+use App\Middleware\RegistroTurnoMiddleware;
+use App\Middleware\TurnosVeterinariosMiddleware;
 
 
 return function ($app) 
@@ -18,6 +23,12 @@ return function ($app)
     $app->post('/login',UsuariosController::class . ':login')->add(LoginMiddleware::class);
     $app->post('/mascota',MascotasController::class . ':add')->add(RegistroMascotaMiddleware::class);
 
+    $app->group('/turnos', function (RouteCollectorProxy $turnos) 
+    {
+        $turnos->post('[/mascota]', TurnosController::class . ':add')->add(RegistroTurnoMiddleware::class);
+        $turnos->get('/{id}', TurnosController::class . ':turnosGetAll')->add(TurnosVeterinariosMiddleware::class);
+        //$group->post('[/]', AlumnosController::class . ':add')->add(AlumnoValidateMiddleware::class);
+    });
     /*
     $app->group('/usuarios', function (RouteCollectorProxy $group) {
         $group->get('[/]', UsuariosController::class . ':getAll');

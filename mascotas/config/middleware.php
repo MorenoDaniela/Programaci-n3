@@ -12,7 +12,7 @@ return function (App $app) {
     $app->addBodyParsingMiddleware();
 
     //$app->add(new RegistroMiddleware());
-    //$app->add(new AfterMiddleware());
+    $app->add(new AfterMiddleware());
     //$app->add(BeforeMiddleware::class);
     
 };

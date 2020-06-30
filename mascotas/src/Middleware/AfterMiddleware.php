@@ -18,7 +18,7 @@ class AfterMiddleware
     public function __invoke(Request $request, RequestHandler $handler): Response
     {
         $response = $handler->handle($request);
-        $response->getBody()->write(' AFTER');//
+        //$response->getBody()->write(' AFTER');//
 
         $response = $response->withHeader('Content-type', 'application/json');
         

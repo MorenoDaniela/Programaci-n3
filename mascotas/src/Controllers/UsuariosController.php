@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Models\Usuario;
 use \Firebase\JWT\JWT;
 
+
 class UsuariosController 
 {
 
@@ -40,7 +41,7 @@ class UsuariosController
         $body = $request->getParsedBody();
 
         $usuarioEncontrado = json_decode(Usuario::whereRaw('email = ? AND password = ?',array($body['email'],$body['password']))->get());
-        
+
         $key = 'usuario';
         $payload = array(
             "email" => $usuarioEncontrado[0]->email,

@@ -5,9 +5,11 @@ namespace App\Middleware;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Psr7\Response as Response;
+use \Firebase\JWT\JWT;
+use App\Models\Turno;
 use App\Models\Usuario;
 
-class RegistroMiddleware
+class TurnosVeterinariosMiddleware
 {
     /**
      * Example middleware invokable class
@@ -21,34 +23,35 @@ class RegistroMiddleware
     {
         
         $headers = $request->getParsedBody();
-        
-        
-        if ((isset($headers['email']) && $headers['email']!="") && (isset($headers['password']) && $headers['password']!="") && (isset($headers['tipo'])&& $headers['tipo']!=""))
+
+        $header = getallheaders();
+        $token = $header['token'];
+        $decoded = JWT::decode($token, 'usuario', array('HS256'));
+        $usuarioEncontrado = json_decode(Usuario::whereRaw('email = ? AND password = ?',array($decoded->email,$decoded->password))->get());
+
+        if ($usuarioEncontrado[0]->tipo == "veterinario")
         {
-            $usuario = Usuario::where('email', $headers['email'])->get();
-            if ($usuario == [] )
-            {
+            //if (isset($args['id']))
+            //{
+                //var_dump($request);
                 $response = $handler->handle($request);
                 $existingContent = (string) $response->getBody();
+                
                 $resp = new Response();
                 $resp->getBody()->write('Los datos se encuentran bien' . $existingContent);
                 return $resp->withHeader('Content-type', 'application/json');
-            }else
-            {
-                $response = new Response();
-                $response->getBody()->write("El email ya se encuentra registrado.");
-                //throw new \Slim\Exception\HttpForbiddenException($request);
-                $response->withStatus(403);
-                return $response->withHeader('Content-type', 'application/json');
-            }  
-        } else 
+                
+            //} else 
+            //{
+              //  $response = new Response();
+                //$response->getBody()->write("No se pudo completar el registro, faltan datos");
+                //return $response->withHeader('Content-type', 'application/json');
+            //}
+        }else
         {
             $response = new Response();
-            $response->getBody()->write("No se pudo completar el registro, faltan datos");
-            //throw new \Slim\Exception\HttpForbiddenException($request);
-            $response->withStatus(403);
+            $response->getBody()->write("Usted es cliente, muestra de turnos solo para veterinarios.");
             return $response->withHeader('Content-type', 'application/json');
         }
-
     }
 }
